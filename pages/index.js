@@ -20,7 +20,22 @@ export default function Home() {
       </button>
     </li>
 
-    <li>SIP (Systematic Investment Plan) calculation </li>
+    <li>SIP (Systematic Investment Plan) calculation 
+    <button className="button">
+        <Link href='/page/sipcalculator'>Calculate</Link>
+      </button>
+    </li>
+    <li>Home/Car/Personal Loan EMI Calculate 
+    <button className="button">
+        <Link href='/page/emicalculator'>Calculate</Link>
+      </button>
+    </li>
+    <li>Time Zone Converter 
+    <button className="button">
+        <Link href='/page/timezone'>Calculate</Link>
+      </button>
+    </li>
+    <li>Income Tax Calculate </li>
     <li>Currency converter </li>
     <li>Mortgage calculator </li>
     <li>BMI (Body Mass Index) calculator </li>
