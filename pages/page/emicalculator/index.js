@@ -1,5 +1,5 @@
 import React from 'react'
-import EMICalculator from '@/components/EmiCalculator'
+import EMICalculator from '@/components/EMICalculator'
 function index() {
   return (
     <div>
