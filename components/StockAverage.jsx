@@ -74,6 +74,7 @@ function StockAverage() {
   const [noOfStock1, setNoOfStock1] = useState('');
   const [stockPrice2, setStockPrice2] = useState('');
   const [noOfStock2, setNoOfStock2] = useState('');
+  const [finalNoOfStock, setFinalNoOfStock] = useState('');
   const [totalInvestment, setTotalInvestment] = useState('');
   const [initialInvestment, setInitialInvestment] = useState('');
   const [newInvestment, setNewInvestment] = useState('');
@@ -100,6 +101,7 @@ function StockAverage() {
     const totalNoOfStocks = parseFloat(noOfStock1) + parseFloat(noOfStock2);
     const newAvg = totalInvestment / totalNoOfStocks;
     setNewAvg(newAvg.toFixed(2));
+    setFinalNoOfStock(totalNoOfStocks.toFixed(2))
   }
 
   return (
@@ -130,6 +132,7 @@ function StockAverage() {
         {newInvestment && <div>New Invested Amount: {newInvestment}</div>}
       </div>
           <button onClick={calculateInvestments}>Calculate</button>
+          {finalNoOfStock && <div>No of Stock: {finalNoOfStock}</div>}
             {totalInvestment && <div>Total Investment: {totalInvestment}</div>}
             {newAvg && <div>New Avg: {newAvg}</div>}
     </div>
