@@ -91,13 +91,8 @@ function StockAverage() {
   }
 
   const calculateInvestments = () => {
-
-
-    
-
     const totalInvestment = parseFloat(initialInvestment) + parseFloat(newInvestment);
     setTotalInvestment(totalInvestment.toFixed(2));
-
     const totalNoOfStocks = parseFloat(noOfStock1) + parseFloat(noOfStock2);
     const newAvg = totalInvestment / totalNoOfStocks;
     setNewAvg(newAvg.toFixed(2));
