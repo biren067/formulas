@@ -21,8 +21,9 @@
   margin: 0%;
 }
 body{
-  background-color: cadetblue !important;;
-  color: rgb(var(--foreground-rgb), var(--foreground-rgb), var(--foreground-rgb));
+  background-color: rgb(35, 86, 87) !important;;
+  /* color: rgb(var(--foreground-rgb), var(--foreground-rgb), var(--foreground-rgb)); */
+  color:rgb(8, 232, 124);
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   line-height: 1.5;
@@ -47,4 +48,12 @@ li{
   color:white;
   font-family: 'Courier New', Courier, monospace;
   font-weight: 300;
+}
+
+.link:hover{
+  border-radius: 20px;
+  border-bottom:greenyellow solid 3px;
+  background-color: green;
+  color:white;
+  padding:3px;
 }

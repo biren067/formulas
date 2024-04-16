@@ -1,72 +1,30 @@
 import { Inter } from "next/font/google";
 import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
+import Calculator from "@/components/Calculator";
 
 export default function Home() {
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <ol className="">
-    <li>Re-Invest Calculation: Investing money continously 
-      <button className="button">
-        <Link href='/page/reinvest'>Calculate</Link>
-      </button>
-    </li>
+    <>
+    {/* <Calculator/> */}
+    <div className="flex justify-center items-center mx-2 px-2 gap-3">
     
-    <li>Age calculation: Calculate Age of a Person 
-      <button className="button">
-        <Link href='/page/agecalculator'>Calculate</Link>
-      </button>
-    </li>
-
-    <li>SIP (Systematic Investment Plan) calculation 
-    <button className="button">
-        <Link href='/page/sipcalculator'>Calculate</Link>
-      </button>
-    </li>
-    <li>Home/Car/Personal Loan EMI Calculate 
-    <button className="button">
-        <Link href='/page/emicalculator'>Calculate</Link>
-      </button>
-    </li>
-    <li>Time Zone Converter 
-    <button className="button">
-        <Link href='/page/timezone'>Calculate</Link>
-      </button>
-    </li>
-    <li>Income Tax Calculate </li>
-    <li>Currency converter </li>
-    <li>Mortgage calculator </li>
-    <li>BMI (Body Mass Index) calculator </li>
-    <li>Percentage calculator </li>
-    <li>GPA (Grade Point Average) </li>
-    <li>Tip calculator </li>
-    <li>Retirement savings calculator </li>
-    <li>Loan repayment calculator </li>
-    <li>Tax calculator </li>
-    <li>Interest rate calculator </li>
-    <li>Distance calculator </li>
-    <li>Time zone converter </li>
-    <li>Fuel cost calculator </li>
-    <li>Square footage calculator </li>
-    <li>Volume calculator </li>
-    <li>Area calculator </li>
-    <li>Factorial calculator </li>
-    <li>Quadratic equation solver </li>
-    <li>Exponential calculator </li>
-    <li>Prime number calculator </li>
-    <li>Binary/Hexadecimal/Decimal converter </li>
-    <li>LCM (Least Common Multiple) </li>
-    <li>GCD (Greatest Common Divisor) </li>
-    <li>Statistics calculator </li>
-    <li>Angle calculator </li>
-    <li>Discount calculator </li>
-    <li>Perimeter calculator </li>
-    <li>Time duration calculator </li>
-    <li>Salary Calculator</li>
-</ol>
+        <Link className={'link'} href='/page/reinvest'>Investing money continously </Link>
+      
+        <Link className={'link'} href='/page/agecalculator'>Age calculation</Link>
+      
+        <Link className={'link'} href='/page/sipcalculator'>SIP (Systematic Investment Plan)</Link>
+      
+     <Link className={'link'} href='/page/emicalculator'>EMI(Home/Car/Persoan Load)</Link>
+    
+        <Link className={'link'} href='/page/timezone'>Time Zone</Link>
+      
+    
+        <Link className={'link'} href='/page/stockaverage'>Stock Average</Link>
+      
+    
+    </div>
  
-      </main>
+      </>
   );
 }

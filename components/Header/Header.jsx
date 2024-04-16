@@ -40,7 +40,9 @@ function Header() {
           <div className={isLinkActive('/') ? `${styles.menu}` : ''}>
             <Link href='/'>Home</Link>
           </div>
-
+        <div className={isLinkActive('/') ? `${styles.menu}` : ''}>
+            <Link href='/page/pending'>Pending</Link>
+          </div>
 
         </div>
       </div>
