@@ -24,7 +24,8 @@
   }
   
   .input-group input:focus {
-    border-color: #ff5a5f; /* Red color */
+    border-color: var(--background-blue-06); 
+    border-color: #44cc11; 
   }
   
   /* .button {
@@ -84,35 +85,35 @@
   }
   
   .pagination .page-item.active .page-link {
-    background-color: #ff5a5f; /* Red color */
-    border-color: #ff5a5f; /* Red color */
+    /* background-color: #ff5a5f;  */
+    /* border-color: #ff5a5f;  */
     color: white;
   }
   
   .mainPage{
-    color:white;
+    /* color:white; */
     }
 
 .mainPage__button_number:hover{
-    background-color: #b4393d;;
+    background-color:var(--background-blue-00); 
     border-color: white;
     
 }
 .mainPage__button{
-    background-color: #ff5a5f;
-    color: white;
-    border: 1px solid #ff5a5f;
+    /* background-color:var(--background-blue-00);  */
+    color: var(--background-blue-04);
+    /* border: 1px solid #ff5a5f; */
     border-radius: 4px;
     padding: 3px 6px;
     margin:5px 10px;
 }
 .mainPage__button_number{
-    border:1px solid #ff5a5f;
-    background-color: #ff5a5f;
+    /* border:1px solid #ff5a5f;
+    background-color: #ff5a5f; */
     border-radius: 4px;
     padding: 3px 10px;
     margin: 5px 8px;
-    color: white;
+    /* color: white; */
 }
 .mainPage__pagination{
     text-align: center;

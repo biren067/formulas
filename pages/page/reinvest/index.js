@@ -247,13 +247,9 @@ function Index() {
         {pageNumber}
       </button>
     ))}
-{/* 
-  {currentPage + 2 < totalPages && (
-    <button className={` ${styles.mainPage__button_number}`}>{`...`}</button>
-  )} */}
 
   <button
-    className={`${styles.mainPage__button}`}
+    className={`${styles.mainPage__button33}`}
     onClick={() => handlePageChange(currentPage + 1)}
     disabled={endIndex >= tableData.length}
   >
@@ -262,95 +258,6 @@ function Index() {
 </div>
 {/* end of pagination */}
 
-{/* Pagination controls */}
-{/* <div className={`${styles.mainPage__pagination}`}>
-        <button className={`${styles.mainPage__button}`}
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button> 
-        {currentPage >= 5 ?(<button      
-            className={` ${styles.mainPage__button_number}`}
-          >
-            {`...`}
-          </button>):(<></>) }
-        {pageNumbers.map((pageNumber) => (
-          <button
-            key={pageNumber}
-            onClick={() => handlePageChange(pageNumber)}            
-            className={` ${styles.mainPage__button_number} ${pageNumber=== currentPage ? 'bg-blue-500 border-blue-100' : 'text-blue'}`}
-          >
-            {pageNumber}
-          </button>
-        ))}
-        <button className={`${styles.mainPage__button}`}
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={endIndex >= tableData.length}
-        >
-          Next
-        </button>
-      </div> */}
-      {/* end of pagination */}
-
-          {/* <div className={styles.pagination}>
-  <button
-    className={`${styles.button} ${currentPage === 1 ? styles.disabled : ''}`}
-    onClick={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))}
-    disabled={currentPage === 1}
-  >
-    Prev
-  </button>
-
-  {Array.from({ length: Math.min(4, Math.ceil(tableData.length / itemsPerPage)) }).map((_, index) => {
-    const pageNumber = index + 1;
-    return (
-      <button
-        key={pageNumber}
-        className={`${styles.button} ${currentPage === pageNumber ? styles.active : ''}`}
-        onClick={() => setCurrentPage(pageNumber)}
-      >
-        {pageNumber}
-      </button>
-    );
-  })}
-
-  <button
-    className={`${styles.button} ${currentPage === Math.ceil(tableData.length / itemsPerPage) ? styles.disabled : ''}`}
-    onClick={() => setCurrentPage((nextPage) => Math.min(nextPage + 1, Math.ceil(tableData.length / itemsPerPage)))}
-    disabled={currentPage === Math.ceil(tableData.length / itemsPerPage)}
-  >
-    Next
-  </button>
-</div> */}
-
-
-
-          {/* <div className={styles.pagination}>
-            <button
-              className={`${styles.button} mx-2`}
-              onClick={() => setCurrentPage((prevPage) => prevPage - 1)}
-              disabled={currentPage === 1}
-            >
-              Prev
-            </button>
-            {Array.from({ length: Math.ceil(tableData.length / itemsPerPage) }).map((_, index) => (
-              <button
-                key={index + 1}
-                className={`${styles.button} ${currentPage === index + 1 ? styles.active : ''} mx-2`}
-                onClick={() => handlePageChange(index + 1)}
-              >
-                {index + 1}
-              </button>
-            ))}
-            <button
-              className={`${styles.button} mx-2`}
-              onClick={() => setCurrentPage((nextPage) => nextPage + 1)}
-              disabled={indexOfLastItem >= tableData.length}
-            >
-              Next
-            </button>
-          </div> */}
 
         </div>
       )}
