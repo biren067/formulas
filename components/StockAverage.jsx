@@ -23,18 +23,21 @@ function StockAverage() {
     setNewInvestment(newInvestment.toFixed(2));
   }
 
-  const calculateInvestments = () => {
+  const calculateInvestments = (e) => {
+    e.preventDefault();
+    console.log("initialInvestment",initialInvestment);
     const totalInvestment = parseFloat(initialInvestment) + parseFloat(newInvestment);
     setTotalInvestment(totalInvestment.toFixed(2));
     const totalNoOfStocks = parseFloat(noOfStock1) + parseFloat(noOfStock2);
     const newAvg = totalInvestment / totalNoOfStocks;
     setNewAvg(newAvg.toFixed(2));
     setFinalNoOfStock(totalNoOfStocks.toFixed(2))
+    console.log("TotalNoOfStrock",totalNoOfStocks);
   }
 
   return (
     <div className='flex-col items-center m-3 px-3 '>
-      <form>
+      <form onSubmit={calculateInvestments}>
       <h1 className='text-center'>Investment Calculator</h1>
       
       <h2>For Initial Investment: Stock at which you have already purchased</h2>
@@ -64,7 +67,7 @@ function StockAverage() {
         {newInvestment && <div>New Invested Amount: {newInvestment}</div>}
         <hr/>
       </div>
-          <button onSubit={calculateInvestments} className={`${styles.button_calculate}`}>Calculate</button>
+          <button type="submit" className={`${styles.button_calculate}`}>Calculate</button>
           {finalNoOfStock && <div>No of Stock: {finalNoOfStock}</div>}
             {totalInvestment && <div>Total Investment: {totalInvestment}</div>}
             {newAvg && <div>New Avg: {newAvg}</div>}
