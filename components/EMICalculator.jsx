@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// import styles from '@/styles/';
 
 function EMICalculator() {
   const [principal, setPrincipal] = useState('');
@@ -43,27 +44,38 @@ function EMICalculator() {
   };
 
   return (
-    <div>
+    <div className="container-box">
       <h2>EMI Calculator</h2>
-      <div>
-        <label>
-          Principal Amount:
-          <input type="number" value={principal} onChange={e => setPrincipal(e.target.value)} />
-        </label>
+      <div className="input-group">
+        <label htmlFor="principal"> Principal Amount:</label>
+        <input
+          type="text"
+          value={principal}
+          style={{ border: "2px solid black", padding: "5px", borderRadius: "4px" }}
+          onChange={e => setPrincipal(e.target.value)}
+        />
       </div>
-      <div>
-        <label>
-          Interest Rate (% per annum):
-          <input type="number" value={interestRate} onChange={e => setInterestRate(e.target.value)} />
-        </label>
+      <div className="input-group">
+      <label htmlFor="interest_rate"> Interest Rate (% per annum):</label>
+      <input
+          type="text"
+          value={interestRate}
+          style={{ border: "2px solid black", padding: "5px", borderRadius: "4px" }}
+          onChange={e => setInterestRate(e.target.value)}
+        />
+        
       </div>
-      <div>
-        <label>
-          Tenure (months):
-          <input type="number" value={tenure} onChange={e => setTenure(e.target.value)} />
-        </label>
+      <div className="input-group">
+      <label htmlFor="interest_rate"> Tenure (months):</label>
+      <input
+          type="text"
+          value={tenure}
+          style={{ border: "2px solid black", padding: "5px", borderRadius: "4px" }}
+          onChange={e => setTenure(e.target.value)}
+        />
+
       </div>
-      <button onClick={calculateEMI}>Calculate EMI</button>
+      <button className={`button`} onClick={calculateEMI}>Calculate EMI</button>
 
       {emi !== '' && totalInterest !== '' && totalPayment !== '' && (
         <div>
