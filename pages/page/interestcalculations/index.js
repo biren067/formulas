@@ -158,7 +158,12 @@ const LoanEMICalculator = () => {
     <div className="input-group">
         <label htmlFor="years">Loan Start Date:</label>
         {/* <DatePicker selected={selectedDate} onChange={date => setSelectedDate(date)} /> */}
-        <DatePicker selected={selectedDate} onChange={date => setSelectedDate(date)} />
+        <DatePicker selected={selectedDate} onChange={date => setSelectedDate(date)} 
+        showYearDropdown
+        showMonthDropdown
+        dropdownMode="select" // Enables a dropdown for year and month selection
+        dateFormat="dd/MM/yyyy"
+        />
     </div>
     <button className={`button`} onClick={calculateEMI}>Calculate</button>
 
@@ -190,8 +195,14 @@ const LoanEMICalculator = () => {
               </tr>
             </thead>
             <tbody>
-            {tableData.slice(indexOfFirstItem, indexOfLastItem).map((item) => (
-              <tr key={item.month}>
+            {tableData.slice(indexOfFirstItem, indexOfLastItem).map((item) => {
+              const currentMonth = new Date().getMonth() + 1; // JavaScript months are 0-based
+              const currentYear = new Date().getFullYear();
+            
+              const isCurrentMonthYear = item.loanMonth.split("-")[0] == String(currentMonth).padStart(2, "0") 
+                                      && item.loanMonth.split("-")[1] == String(currentYear);
+
+              return (<tr key={item.month} style={isCurrentMonthYear ? { fontWeight: "bold" } : {}}>
                 <td>{item.month}</td>
                 <td>{item.loanMonth}</td>
                 
@@ -201,8 +212,8 @@ const LoanEMICalculator = () => {
                 <td>{item.totalPrincipalPaid}</td>
                 <td>{item.amountPaid}</td>
                 <td>{item.remainingPrincipal}</td>
-              </tr>
-            ))}
+              </tr>)
+              })}
 
             </tbody>
           </table>
@@ -253,66 +264,6 @@ const LoanEMICalculator = () => {
 </div>
       )}
     </div>
-    // <div className="container mx-auto p-5">
-    //   <h2 className="text-xl font-bold mb-4">Loan EMI Calculator</h2>
-    //   <div className="mb-4">
-    //     <label className="block font-semibold">Loan Amount:</label>
-    //     <input
-    //       type="number"
-    //       value={principal}
-    //       onChange={(e) => setPrincipal(Number(e.target.value))}
-    //       className="border p-2 w-full"
-    //     />
-    //   </div>
-    //   <div className="mb-4">
-    //     <label className="block font-semibold">Interest Rate (% per year):</label>
-    //     <input
-    //       type="number"
-    //       value={rate}
-    //       onChange={(e) => setRate(Number(e.target.value))}
-    //       className="border p-2 w-full"
-    //     />
-    //   </div>
-    //   <div className="mb-4">
-    //     <label className="block font-semibold">Loan Tenure (Years):</label>
-    //     <input
-    //       type="number"
-    //       value={years}
-    //       onChange={(e) => setYears(Number(e.target.value))}
-    //       className="border p-2 w-full"
-    //     />
-    //   </div>
-    //   <h3 className="text-lg font-semibold">Your EMI: ₹{emi} per month</h3>
-      
-    //   <table className="w-full mt-4 border-collapse border border-gray-300">
-    //     <thead>
-    //       <tr className="bg-gray-200">
-    //         <th className="border p-2">Month</th>
-    //         <th className="border p-2">EMI</th>
-    //         <th className="border p-2">Principal Paid</th>
-    //         <th className="border p-2">Interest Paid</th>
-    //         <th className="border p-2">Total Interest Paid</th>
-    //         <th className="border p-2">Total Principal Paid</th>
-    //         <th className="border p-2">Remaining Principal</th>
-    //         <th className="border p-2">Total EMI Remaining</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       {emiSchedule.map((row) => (
-    //         <tr key={row.month} className="text-center">
-    //           <td className="border p-2">{row.month}</td>
-    //           <td className="border p-2">₹{row.emi}</td>
-    //           <td className="border p-2">₹{row.principalPaid}</td>
-    //           <td className="border p-2">₹{row.interestPaid}</td>
-    //           <td className="border p-2">₹{row.totalInterestPaid}</td>
-    //           <td className="border p-2">₹{row.totalPrincipalPaid}</td>
-    //           <td className="border p-2">₹{row.remainingPrincipal}</td>
-    //           <td className="border p-2">₹{row.totalEMIRemaining}</td>
-    //         </tr>
-    //       ))}
-    //     </tbody>
-    //   </table>
-    // </div>
   );
 };
 
