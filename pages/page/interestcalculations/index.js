@@ -81,10 +81,11 @@ const LoanEMICalculator = () => {
     const nPrincipal = Number(principal.replace(/,/g, '')); 
     const emi = (nPrincipal * Number(monthlyRate) * Math.pow(1 + monthlyRate, months)) / 
                 (Math.pow(1 + monthlyRate, months) - 1);
-    setEmiPerMonth(emi.toFixed(0))
+    setEmiPerMonth(formatIndianNumber(emi.toFixed(0)))
     let remainingPrincipal = nPrincipal;
     let totalInterestPaid = 0;
     let totalPrincipalPaid = 0;
+    let amountPaid = 0;
     let data = [];
     let loanMonth = selectedDate.getMonth() ; // Example: 2 (February)
     let loanYear = selectedDate.getFullYear() ;   
@@ -94,6 +95,7 @@ const LoanEMICalculator = () => {
       totalInterestPaid += interestPaid;
       totalPrincipalPaid += principalPaid;
       remainingPrincipal -= principalPaid;
+      amountPaid = amountPaid + interestPaid + principalPaid;
       ({ month: loanMonth, year: loanYear } = getLoanMonthYear(loanMonth, loanYear));
       const formattedMonth = loanMonth.toString().padStart(2, "0");
       data.push({
@@ -104,6 +106,7 @@ const LoanEMICalculator = () => {
         interestPaid: formatIndianNumber(interestPaid.toFixed(0)),
         totalInterestPaid: formatIndianNumber(totalInterestPaid.toFixed(0)),
         totalPrincipalPaid: formatIndianNumber(totalPrincipalPaid.toFixed(0)),
+        amountPaid:formatIndianNumber(amountPaid.toFixed(0)),
         remainingPrincipal: formatIndianNumber(remainingPrincipal.toFixed(0)),
         totalEMIRemaining: formatIndianNumber( (emi * (months - i)).toFixed(0)),
       });
@@ -161,6 +164,12 @@ const LoanEMICalculator = () => {
 
     {/* <div>{loanMonth ? loanMonth : "No date selected"}</div>
     <div>{loanYear ? loanYear : "No date selected"}</div> */}
+  {tableData.length > 0 && (
+  <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px", border: "1px solid #ddd", borderRadius: "8px", background: "#f9f9f9" }}>
+    <div style={{ fontWeight: "bold", color: "#333" }}>EMI Per Month:</div>
+    <div style={{ fontSize: "18px", color: "#007bff" }}>{emiPerMonth}</div>
+  </div>
+)}
 
 
     {tableData.length > 0 && (
@@ -170,12 +179,13 @@ const LoanEMICalculator = () => {
             <thead>
               <tr>
                 <th>No.</th>
-                <th>loanMonth</th>
-                <th>EMI</th>
+                <th>Monthly </th>
+                
                 <th>Principal</th>
                 <th>Interest</th>
                 <th>Interest Paid</th>
                 <th>Principal Paid</th>
+                <th>Amount Paid</th>
                 <th>Principal Due</th>
               </tr>
             </thead>
@@ -184,11 +194,12 @@ const LoanEMICalculator = () => {
               <tr key={item.month}>
                 <td>{item.month}</td>
                 <td>{item.loanMonth}</td>
-                <td>{item.emi}</td>
+                
                 <td>{item.principalPaid}</td>
                 <td>{item.interestPaid}</td>
                 <td>{item.totalInterestPaid}</td>
                 <td>{item.totalPrincipalPaid}</td>
+                <td>{item.amountPaid}</td>
                 <td>{item.remainingPrincipal}</td>
               </tr>
             ))}
