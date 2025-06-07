@@ -2,8 +2,10 @@
 import React, { useState } from 'react';
 import styles from '@/styles/reinvest.module.css'; // Import component-level CSS
 
+
 function Index() {
   const [principal, setPrincipal] = useState('');
+  const [paidInterest, setPaidInterest] = useState('');
   const [rate, setRate] = useState('');
   const [years, setYears] = useState('');
   const [months, setMonths] = useState('');
@@ -16,6 +18,7 @@ function Index() {
   const [pageNumbers, setPageNumbers] = useState(1);
   const netPage = [];
   const maxPageButtons = 4;
+  
   
   // Function to format principal amount with Indian numbering system
   const formatIndianNumber = (amount) => {
@@ -49,11 +52,17 @@ function Index() {
     for (let i = 1; i <= n; i++) {
       const A = lastAmount * Math.pow(1 + r, 1);
       const interestEarned = A - lastAmount;
-      data.push({ duration: i, investedAmount: formatIndianNumber(lastAmount), interest: formatIndianNumber(interestEarned), amount: formatIndianNumber(A) });
-      lastAmount = A;
+      const paidInterestValue = A - paidInterest
+      data.push({ duration: i, 
+            investedAmount: formatIndianNumber(lastAmount), 
+            interest: formatIndianNumber(interestEarned), 
+            amount: formatIndianNumber(A), 
+            paidInterest: formatIndianNumber(paidInterestValue)
+          });
+      lastAmount = paidInterestValue;
     }
+    console.log("paidInterest::",data)
     setTableData(data);
-    console.log("data Length::",data.length)
     let endPage = data.length/itemsPerPage
     for (let i = 1; i <= endPage; i++) {
       netPage.push(i);
@@ -86,8 +95,12 @@ function Index() {
 
   const setCustomYearsOrMonths = (e) => {
     resetData();
-    setMonths(e.target.value )
+    setMonths(e.target.value )   
+  };
+  const setMonthyInterestPaid = (e) => {
+    resetData();
     
+    setPaidInterest(e.target.value)   
   };
 
   // const itemsPerPage = 10; // Define itemsPerPage here
@@ -139,6 +152,16 @@ function Index() {
             onChange={setCustomYearsOrMonths}
           />
       </div>
+      <div className={styles['input-group']}>
+          <label htmlFor="paidInterest">Interest/EMI paid monthly:</label>
+          <input
+            type="number"
+            id="paidInterest"
+            value={paidInterest}
+            // onChange={(e) => setMonths(e.target.value)}
+            onChange={setMonthyInterestPaid} 
+          />
+      </div>
       <button className={`button`} onClick={calculateCompoundInterest}>Calculate</button>
       
       {tableData.length > 0 && (
@@ -151,6 +174,7 @@ function Index() {
                 <th>Invested Amount</th>
                 <th>Interest</th>
                 <th>Amount</th>
+                <th>After Interest (<small>{paidInterest}</small>)</th>
               </tr>
             </thead>
             <tbody>
@@ -160,6 +184,7 @@ function Index() {
                 <td>{item.investedAmount}</td>
                 <td>{item.interest}</td>
                 <td>{item.amount}</td>
+                <td>{item.paidInterest}</td>
               </tr>
             ))}
 
