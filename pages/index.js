@@ -13,6 +13,7 @@ export default function Home() {
         <Link className={'link'} href='/page/reinvest'>Money Regular </Link>
         <Link className={'link'} href='/page/reinvest-emi'>Money After EMI</Link>
         <Link className={'link'} href='/page/stockaverage'>Stock Average</Link>
+        <Link className={'link'} href='/page/sipcalculation'>SIP Calculations</Link>
         <Link className={'link'} href='/page/interestcalculations'>Interest Calculations</Link>
         <Link className={'link'} href='/page/agecalculator'>Age calculation</Link>
         <Link className={'link'} href='/page/sipcalculator'>SIP (Systematic Investment Plan)</Link>
