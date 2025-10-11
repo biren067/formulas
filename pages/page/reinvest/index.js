@@ -5,6 +5,8 @@ import styles from '@/styles/reinvest.module.css'; // Import component-level CSS
 function Index() {
   const [principal, setPrincipal] = useState('');
   const [rate, setRate] = useState('');
+  const [interestEarned,setInterestEarned] = useState(0)
+  // const [netInvestment,setNetInvestment] = useState(0)
   const [years, setYears] = useState('');
   const [months, setMonths] = useState('');
   const [tableData, setTableData] = useState([]);
@@ -51,6 +53,9 @@ function Index() {
       const interestEarned = A - lastAmount;
       data.push({ duration: i, investedAmount: formatIndianNumber(lastAmount), interest: formatIndianNumber(interestEarned), amount: formatIndianNumber(A) });
       lastAmount = A;
+      // console.log("previous:",interestEarned)
+      console.log(`${i} interestEarned: ${interestEarned}`)
+      setInterestEarned((prev)=>prev+interestEarned)
     }
     setTableData(data);
     console.log("data Length::",data.length)
@@ -213,6 +218,15 @@ function Index() {
 </div>
 {/* end of pagination */}
 
+{tableData.length > 0 &&(
+        <div className="flex flex-col justify-center items-start gap-2 mt-5">
+
+            <div><strong>Interest Earned  </strong>₹ {Math.round(interestEarned).toLocaleString("en-IN")}</div>
+            <div><strong>Net Amount       </strong>₹ {tableData[tableData.length-1].amount}</div>
+
+
+            </div>
+)}
 
         </div>
       )}

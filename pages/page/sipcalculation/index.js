@@ -1,140 +1,173 @@
+"use client";
 import React, { useState } from "react";
 
-export default function InvestmentPlan() {
-  const [startMoney, setStartMoney] = useState(0);
-  const [monthly, setMonthly] = useState(0);
-  const [rate, setRate] = useState(0);
-  const [months, setMonths] = useState(0);
-  const [data, setData] = useState([]);
-  const [yearlyInvestment, setYearlyInvestment] = useState(0);
-  const [interestAmount, setInterestAmount] = useState(0);
+export default function SIPCalculator() {
+  const [monthlyInvestment, setMonthlyInvestment] = useState(10000);
+  const [annualRate, setAnnualRate] = useState(12);
+  const [annualIncrement, setAnnualIncrement] = useState(10);
+  const [years, setYears] = useState(10);
+  const [tableData, setTableData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+
   const rowsPerPage = 10;
 
-  const handleCalculate = () => {
-    const result = [];
-    let principal = startMoney;
-    const r = rate / 100; // convert to decimal
-    const years = Math.ceil(months / 12);
+  const formatINR = (value) => "₹" + Math.round(value).toLocaleString("en-IN");
+
+  const calculateSIP = () => {
+    const rate = annualRate / 100;
+    let currentMonthly = monthlyInvestment;
+    let result = [];
+    let totalInvestment = 0;
+    let totalValue = 0;
+    let prevInvestment = 0
 
     for (let year = 1; year <= years; year++) {
-      const yearlyInvestment = monthly * 12;
-      const interest = principal * r;
-      const amount = principal + interest + yearlyInvestment;
-
-      result.push({
+      const currentInvestment = currentMonthly * 12;
+      const interestOn = currentInvestment + totalValue
+      const interest = interestOn * ((annualRate /100));
+      totalValue = interestOn  + interest ;
+      totalInvestment += currentInvestment;
+      
+      console.log(`${currentInvestment} === ${interest} === ${prevInvestment}`)
+       
+       result.push({
         id: year,
-        yearlyInvestment: yearlyInvestment.toFixed(2),
-        principal: principal.toFixed(2),
-        interest: interest.toFixed(2),
-        amount: amount.toFixed(2),
+        currentInvestment,
+        totalInvestment,
+        interestOn,
+        interest,
+        totalValue,
       });
-        setYearlyInvestment((prev)=>prev+yearlyInvestment)
-        setInterestAmount((prev)=>prev+interest)
 
-      principal = amount; // next year's principal
+      prevInvestment = totalValue;
+      currentMonthly = currentMonthly * (1 + (annualIncrement /100));
+      
     }
-
-    setData(result);
+    // console.log(result)
+    setTableData(result);
     setCurrentPage(1);
   };
 
-  // Pagination logic
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-  const currentRows = data.slice(indexOfFirstRow, indexOfLastRow);
-  const totalPages = Math.ceil(data.length / rowsPerPage);
+  const currentRows = tableData.slice(indexOfFirstRow, indexOfLastRow);
+  const totalPages = Math.ceil(tableData.length / rowsPerPage);
+
+  const totalInvestment = tableData.reduce((a, b) => a + b.currentInvestment, 0);
+  const totalInterest = tableData.reduce((a, b) => a + b.interest, 0);
+  // const netAmount = totalInvestment + totalInterest
+
 
   return (
-    <div className="p-6 max-w-3xl mx-auto bg-white rounded-2xl shadow-md">
-      <h1 className="text-2xl font-bold mb-4 text-center">Market Investment Plan</h1>
+    <div className="p-6 max-w-3xl mx-auto font-sans">
+      <h1 className="text-2xl font-bold text-center mb-6">
+        SIP Growth Calculator
+      </h1>
 
+      {/* Input Section */}
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <div>
-          <label className="block text-sm font-medium">Start Money</label>
+<div>
+  <label className="block text-sm font-medium">Monthly Investment</label>
+         
           <input
-            type="number"
-            value={startMoney}
-            onChange={(e) => setStartMoney(Number(e.target.value))}
-            className="border rounded p-2 w-full"
-            placeholder="0"
-          />
-        </div>
+          type="number"
+          placeholder="Monthly Investment"
+          value={monthlyInvestment}
+          onChange={(e) => setMonthlyInvestment(Number(e.target.value))}
+          className="border p-2 rounded w-full"
+        />
+      </div>
+
+<div>
+  <label className="block text-sm font-medium">Interest</label>
+         
+          <input
+          type="number"
+          placeholder="Annual Interest Rate (%)"
+          value={annualRate}
+          onChange={(e) => setAnnualRate(Number(e.target.value))}
+          className="border p-2 rounded w-full"
+        />
+      </div>
+
+        
+        
 
         <div>
-          <label className="block text-sm font-medium">Monthly Investment</label>
-          <input
-            type="number"
-            value={monthly}
-            onChange={(e) => setMonthly(Number(e.target.value))}
-            className="border rounded p-2 w-full"
-            placeholder="0"
-          />
-        </div>
+  <label className="block text-sm font-medium">Yeary Increament(%)</label>
+         
+         <input
+          type="number"
+          placeholder="Annual Increment (₹)"
+          value={annualIncrement}
+          onChange={(e) => setAnnualIncrement(Number(e.target.value))}
+          className="border p-2 rounded w-full"
+        />
+      </div>
 
-        <div>
-          <label className="block text-sm font-medium">Rate of Interest (Annual %)</label>
-          <input
-            type="number"
-            value={rate}
-            onChange={(e) => setRate(Number(e.target.value))}
-            className="border rounded p-2 w-full"
-            placeholder="0"
-          />
-        </div>
 
-        <div>
-          <label className="block text-sm font-medium">Number of Months</label>
-          <input
-            type="number"
-            value={months}
-            onChange={(e) => setMonths(Number(e.target.value))}
-            className="border rounded p-2 w-full"
-            placeholder="0"
-          />
-        </div>
+ <div>
+  <label className="block text-sm font-medium">Years</label>
+         
+           <input
+          type="number"
+          placeholder="Number of Years"
+          value={years}
+          onChange={(e) => setYears(Number(e.target.value))}
+          className="border p-2 rounded w-full"
+        />
+      </div>
+       
+      
       </div>
 
       <button
-        onClick={handleCalculate}
+        onClick={calculateSIP}
         className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
       >
         Calculate
       </button>
 
-      {data.length > 0 && (
-        <div className="mt-6">
-          <table className="w-full border-collapse border border-gray-300 text-sm">
-            <thead className="bg-gray-100">
+      {/* Table Section */}
+      {tableData.length > 0 && (
+        <>
+          <table className="w-full border-collapse border text-sm mt-6">
+            <thead className="bg-gray-200">
               <tr>
-                <th className="border p-2">S.No</th>
+                <th className="border p-2">Year</th>
                 <th className="border p-2">Yearly Investment</th>
-                <th className="border p-2">Principal</th>
+                <th className="border p-2">Monthly Investment</th>
+                <th className="border p-2">Total Investment</th>
+                <th className="border p-2">Interest On</th>
                 <th className="border p-2">Interest Earned</th>
-                <th className="border p-2">Total Amount</th>
+                <th className="border p-2">Total Value</th>
+
               </tr>
             </thead>
             <tbody>
               {currentRows.map((row) => (
-                <tr key={row.id} className="text-center">
-                  <td className="border p-2">{row.id}</td>
-                  <td className="border p-2">₹{row.yearlyInvestment}</td>
-                  <td className="border p-2">₹{row.principal}</td>
-                  <td className="border p-2">₹{row.interest}</td>
-                  <td className="border p-2 font-semibold">₹{row.amount}</td>
+                <tr key={row.id}>
+
+                  <td className="border p-2 text-center">{row.id}</td>
+                  <td className="border p-2 text-right">{formatINR(row.currentInvestment)}</td>
+                  <td className="border p-2 text-right">{formatINR(row.currentInvestment/12)}</td>
+
+                  <td className="border p-2 text-right">{formatINR(row.totalInvestment)}</td>
+                  <td className="border p-2 text-right">{formatINR(row.interestOn)}</td>
+                  <td className="border p-2 text-right text-green-600">{formatINR(row.interest)}</td>
+                  <td className="border p-2 text-right font-semibold">{formatINR(row.totalValue)}</td>
+                  {/* <td className="border p-2 text-right font-semibold">{formatINR(row.netAmount)}</td> */}
                 </tr>
               ))}
             </tbody>
           </table>
 
-          {/* Pagination */}
-          <div className="flex justify-between items-center mt-4">
+          {/* Pagination Controls */}
+          <div className="flex justify-center items-center mt-4 space-x-2">
             <button
+              onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
               disabled={currentPage === 1}
-              onClick={() => setCurrentPage((p) => p - 1)}
-              className={`px-3 py-1 rounded ${
-                currentPage === 1 ? "bg-gray-300" : "bg-blue-500 text-white"
-              }`}
+              className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
             >
               Prev
             </button>
@@ -142,26 +175,27 @@ export default function InvestmentPlan() {
               Page {currentPage} of {totalPages}
             </span>
             <button
+              onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
               disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage((p) => p + 1)}
-              className={`px-3 py-1 rounded ${
-                currentPage === totalPages ? "bg-gray-300" : "bg-blue-500 text-white"
-              }`}
+              className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
             >
               Next
             </button>
           </div>
-        </div>
-      )}
-       {data.length > 0 &&(
-        <div class="flex flex-col justify-center items-start gap-2 mt-5">
-  <div><strong>Total Investment  </strong>{Math.round(yearlyInvestment).toLocaleString("en-IN")}</div>
-  <div><strong>Interest Earned   </strong>{Math.round(interestAmount).toLocaleString("en-IN")}</div> 
-  <div><strong>Net  </strong>{Math.round(yearlyInvestment + interestAmount).toLocaleString("en-IN")}</div> 
-            </div>
-        
 
-       )}
+          {/* Totals */}
+          <div className="mt-6 text-right">
+            <p className="text-lg font-semibold">
+              Total Investment: {formatINR(totalInvestment)}
+            </p>
+            <p className="text-lg font-semibold text-green-700">
+              Total Interest (Profit): {formatINR(totalInterest)}
+            </p>
+
+             <div><strong>Net Amount       </strong>₹ {formatINR(tableData[tableData.length-1].totalValue)}</div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
