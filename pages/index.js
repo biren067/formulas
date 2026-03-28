@@ -19,7 +19,9 @@ export default function Home() {
         <Link href="/page/reinvest-emi" className="btn">
           Money After EMI
         </Link>
-
+        <Link href="/page/nifty50" className="btn">
+          Nifty 50 Stocks
+        </Link>
         <Link href="/page/sipcalculation" className="btn">
           SIP Calculations
         </Link>
