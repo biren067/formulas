@@ -13,53 +13,62 @@
   --background-blue-04: #6dd7fd;
   --background-blue-05: #bef0ff;
   --background-body: #ffffff;
-  --color-white-00:#FFFFFF;
-  --color-blue-01:rgb(12, 12, 17)ckground-blue-00;  
+  --color-white-00: #ffffff;
+  --color-blue-01: rgb(12, 12, 17) ckground-blue-00;
 }
-*{
+* {
   padding: 0%;
   margin: 0%;
 }
-body{
+body {
   background-color: var(--background-body);
-  color:var(--background-blue-00);
-  font-family: 'Open Sans', sans-serif;
+  color: var(--background-blue-00);
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   line-height: 1.5;
 }
 .button {
-  background-color: var(--background-blue-01); 
+  background-color: var(--background-blue-01);
   color: var(--background-blue-06);
   border: none;
   padding: 10px 10px;
   font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
-  margin:2px;
+  margin: 2px;
   transition: background-color 0.3s ease;
 }
 
-.button:hover {
-  background-color: var(--background-blue-02); 
+.button_calculate {
+  display: block;
+  width: 100px;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-li{
-  color:white;
-  font-family: 'Courier New', Courier, monospace;
+.button:hover {
+  background-color: var(--background-blue-02);
+}
+
+li {
+  color: white;
+  font-family: "Courier New", Courier, monospace;
   font-weight: 300;
 }
-
 
 .link {
   border-left: transparent solid 3px;
   padding: 3px;
-
 }
-.link:hover{
-   transition: border-left-color 0.3s;
-  border-left:var(--background-blue-00) solid 3px;
+.link:hover {
+  transition: border-left-color 0.3s;
+  border-left: var(--background-blue-00) solid 3px;
 }
-
 
 .input-group {
   margin-bottom: 20px;
@@ -81,8 +90,8 @@ li{
 }
 
 .input-group input:focus {
-  border-color: var(--background-blue-06); 
-  border-color: #44cc11; 
+  border-color: var(--background-blue-06);
+  border-color: #44cc11;
 }
 
 .container-box {
@@ -100,7 +109,8 @@ li{
   border-collapse: collapse;
 }
 
-.table-container th, .table-container td {
+.table-container th,
+.table-container td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
@@ -109,7 +119,6 @@ li{
 .table-container th {
   background-color: #f2f2f2;
 }
-
 
 .pagination {
   display: flex;
@@ -125,7 +134,9 @@ li{
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .pagination .page-link:hover {
@@ -139,24 +150,23 @@ li{
   color: white;
 }
 
-.mainPage{
+.mainPage {
   /* color:white; */
-  }
-
-.mainPage__button_number:hover{
-  background-color:var(--background-blue-00); 
-  border-color: white;
-  
 }
-.mainPage__button{
+
+.mainPage__button_number:hover {
+  background-color: var(--background-blue-00);
+  border-color: white;
+}
+.mainPage__button {
   /* background-color:var(--background-blue-00);  */
   color: var(--background-blue-04);
   /* border: 1px solid #ff5a5f; */
   border-radius: 4px;
   padding: 3px 6px;
-  margin:5px 10px;
+  margin: 5px 10px;
 }
-.mainPage__button_number{
+.mainPage__button_number {
   /* border:1px solid #ff5a5f;
   background-color: #ff5a5f; */
   border-radius: 4px;
@@ -164,11 +174,20 @@ li{
   margin: 5px 8px;
   /* color: white; */
 }
-.mainPage__pagination{
+.mainPage__pagination {
   text-align: center;
 }
 
 .react-calendar {
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+  @apply px-2 py-1 text-white font-semibold   
+  /* bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 
+  hover:from-pink-500 hover:to-blue-500  */
+  bg-slate-500
+  transition-all duration-300 border-blue-400 border-2 hover:shadow-xl 
+  whitespace-nowrap;
 }
